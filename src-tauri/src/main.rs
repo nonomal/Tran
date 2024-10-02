@@ -1,8 +1,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use manager::api;
-use manager::api::TransVO;
-use resp::Resp;
+use std::sync::atomic::Ordering;
+
+use resp::R;
 
 mod clip;
 mod common;
@@ -16,19 +16,11 @@ mod tray;
 mod util;
 mod window;
 
-/// 翻译文本
-///
-/// Translate text
-#[tauri::command]
-async fn translate(content: String) -> Resp<TransVO> {
-    api::translate(&content).await.into()
-}
-
 /// 写入剪贴板
 ///
 /// Write to clipboard
 #[tauri::command]
-fn copy(content: String) -> Resp<()> {
+fn copy(content: String) -> R<()> {
     clip::set(content).into()
 }
 
@@ -36,14 +28,40 @@ fn copy(content: String) -> Resp<()> {
 ///
 /// Open the specified link
 #[tauri::command]
-async fn open(url: String) -> Resp<()> {
+async fn open(url: String) -> R<()> {
     open::that(url).map_err(anyhow::Error::msg).into()
 }
 
 /// 固定窗口标识
+///
+/// Pin the window
 #[tauri::command]
-async fn pin(state: bool) {
-    common::PIN.store(state, std::sync::atomic::Ordering::SeqCst);
+async fn pin() -> R<bool> {
+    R::success(common::PIN.load(Ordering::SeqCst))
+}
+
+/// 取消固定窗口标识
+///
+/// Unpin the window
+#[tauri::command]
+async fn unpin() {
+    common::PIN.store(false, Ordering::SeqCst);
+}
+
+/// 取消临时固定窗口标识
+///
+/// Unpin the temporary window
+#[tauri::command]
+async fn untmp() {
+    common::TMP_PIN.store(false, Ordering::SeqCst);
+}
+
+/// 取消临时固定窗口标识
+///
+/// Unpin the temporary window
+#[tauri::command]
+async fn theme() -> R<String> {
+    R::success(config::theme())
 }
 
 #[tokio::main]
@@ -53,10 +71,11 @@ async fn main() {
     common::init().await;
 
     tauri::Builder::default()
-        .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_single_instance::init(|_, _, _| {}))
         .setup(setup::handler)
-        .invoke_handler(tauri::generate_handler![copy, open, translate, pin,])
+        .invoke_handler(tauri::generate_handler![
+            copy, open, pin, unpin, untmp, theme
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

@@ -4,59 +4,20 @@
     display: flex;
     flex-direction: row;
     text-align: center;
-    background-color: #1e2227;
-    color: #ffffff;
-}
-
-.panel-control {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    border-right: 1px solid #434244;
-}
-
-.panel-control-item {
-    flex: 1;
-    width: 20px;
-    height: 100%;
-    fill: #b9b9b9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: transform 0.3s linear;
-}
-
-.panel-control-item:hover {
-    background-color: #4e4e4e;
-    fill: #e0e0e0
-}
-
-.panel-control-pin-conainer {
-    cursor: move;
-}
-
-.panel-control-pin {
-    transform: rotate(-45deg);
-    fill: #a7e3ed;
-    cursor: pointer;
-}
-
-.panel-control-copy,
-.panel-control-copy:hover {
-    fill: #a7edb1
+    background-color: var(--pannel-background-color);
+    color: var(--pannel-text-color);
 }
 
 .result {
     flex: 1;
     display: flex;
     flex-direction: column;
-    color: #ffffff;
+    color: var(--result-text-color);
     margin: 4px;
     padding: 4px;
     text-align: left;
     border-radius: 4px;
-    background-color: #262a30;
+    background-color: var(--result-background-color);
     overflow-x: hidden;
     overflow-y: scroll;
     word-wrap: break-word;
@@ -65,7 +26,6 @@
     line-height: 1.2;
     font-size: 15px;
     font-family: 'FiraCode Nerd Font Mono', 'LXGW WenKai Mono', 'LXGW WenKai', monospace;
-
 }
 
 .dict {
@@ -78,8 +38,8 @@
 .dict-pos {
     padding: 1px 5px;
     border-radius: 4px;
-    color: #434244;
-    background-color: #07c3f2;
+    color: var(--dict-pos-text-color);
+    background-color: var(--dict-pos-background-color);
     font-weight: bold;
     margin: 2px;
     height: 25px;
@@ -90,7 +50,7 @@
 .dict-term {
     padding: 1px 5px;
     border-radius: 4px;
-    background-color: #434244;
+    background-color: var(--dict-term-background-color);
     margin: 2px;
     height: 25px;
     line-height: 25px;
@@ -102,4 +62,24 @@
     bottom: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+:root {
+    --pannel-background-color: #1e2227;
+    --pannel-text-color: #ffffff;
+    --result-background-color: #262a30;
+    --result-text-color: #ffffff;
+    --dict-pos-background-color: #07c3f2;
+    --dict-pos-text-color: #434244;
+    --dict-term-background-color: #434244;
+}
+
+[data-theme="light"] {
+    --pannel-background-color: #dadada;
+    --pannel-text-color: #1e2227;
+    --result-background-color: #ffffff;
+    --result-text-color: #262a30;
+    --dict-pos-background-color: #07c3f2;
+    --dict-pos-text-color: #434244;
+    --dict-term-background-color: #e3e3e3;
 }

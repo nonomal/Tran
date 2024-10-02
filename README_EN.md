@@ -21,7 +21,7 @@ Simple, fast, translate selected words
 
 <div align="center">
     <a href="https://github.com/Borber/tran" target="_blank" alt="Tran">
-        <img src="https://fastly.jsdelivr.net/gh/Borber/PublicPic1/tran/v1/tran-new-panel.png">
+        <img src="https://fastly.jsdelivr.net/gh/Borber/PublicPic1/tran/v1/tran.png">
     </a>
 </div>
 
@@ -56,7 +56,7 @@ If you are a Chinese user but need to read in English, you can choose the instal
 # How to use?
 
 -   single translation
-    -   After selecting the text, quickly press the `CapsLock` key **twice**. You can make `Tran` lose focus and close automatically by clicking elsewhere.
+    -   After selecting the text, quickly press the `Shift` key **twice**. You can make `Tran` lose focus and close automatically by clicking elsewhere.
 -   Multiple translations
     -   After a single translation, drag the translation panel to make `Tran` fixed
     -   After pinning the panel, double-click a word or select long text `Tran` will be automatically translated
@@ -74,10 +74,6 @@ It is recommended to install the following fonts:
 -   [Windows](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd)
 -   [MacOS](https://support.apple.com/guide/mac-help/mh15189/mac)
 -   Linux: wiki is your best tutorial
-
-## Known issues
-
--   Cannot be used in Foxit Reader
 
 # Contribution
 
@@ -112,7 +108,7 @@ More mirrors can support more people, so you are encouraged to create mirrors.
 
 vercel proxy google translate
 
--   Only consumes traffic, not the number of function runs
+-   consumes Edge Requests
 
 [![vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/Borber/v2g)
 

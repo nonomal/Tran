@@ -1,4 +1,4 @@
-<a href="https://github.com/Borber/tran"><img width="200px" src="https://fastly.jsdelivr.net/gh/Borber/tran/public/icon.png" align="left"/></a>
+<a href="https://github.com/Borber/tran"><img width="200px" src="https://cdn.jsdelivr.net/gh/Borber/tran/public/icon.png" align="left"/></a>
 
 # Tran
 
@@ -56,8 +56,8 @@
 # 使用
 
 -   单次翻译
-    -   选中文本之后, 快速按下快捷键 `CapsLock` 键 **两次**. 你可以通过点击其他地方使 `Tran` 失去焦点, 自动关闭
-        -   双击 CapsLock. 我知道这可能会一些非常出色的工具产生不可调和的快捷键冲突, 在此提前抱歉.
+    -   选中文本之后, 快速按下快捷键 `Shift` 键 **两次**. 你可以通过点击其他地方使 `Tran` 失去焦点, 自动关闭
+        -   双击 `Shift`. 我知道这可能会一些非常出色的工具产生不可调和的快捷键冲突, 在此提前抱歉.
 -   多次翻译
     -   在单次翻译之后, 拖动翻译面板, 使 `Tran` 固定
     -   固定面板后, 双击单词或选中长文本 `Tran` 将自动翻译
@@ -77,10 +77,6 @@
 -   [Windows](https://support.microsoft.com/zh-cn/windows/%E5%9C%A8-windows-10-%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%9C%A8%E5%90%AF%E5%8A%A8%E6%97%B6%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%BA%94%E7%94%A8-150da165-dcd9-7230-517b-cf3c295d89dd)
 -   [MacOS](https://support.apple.com/zh-cn/guide/mac-help/mh15189/mac)
 -   Linux wiki 是你最好的教程
-
-## 已知问题
-
--   无法在福昕阅读器中使用
 
 # 贡献
 
@@ -115,7 +111,7 @@
 
 vercel proxy google translate
 
--   仅消耗流量, 不消耗函数运行次数
+-   消耗 Edge Requests
 
 [![vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/Borber/v2g)
 

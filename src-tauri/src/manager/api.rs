@@ -1,14 +1,13 @@
-use std::sync::atomic::Ordering;
-
 use anyhow::Result;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use reqwest::Client;
 use serde::Serialize;
 
-use crate::{common::CLIENT, config::MODE, lang, manager::mirror};
+use crate::{common::CLIENT, config, lang, manager::mirror};
 
+// TODO: 数组字段枚举
 /// 翻译结果
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct TransVO {
     /// 是否为单词
     pub word: bool,
@@ -18,17 +17,16 @@ pub struct TransVO {
     pub dicts: Option<Vec<Dict>>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Dict {
     pub pos: String,
     pub terms: Vec<String>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Tran {
     // 0: 文本
     // 1: 换行
-    // 2: 空格
     pub typ: u64,
     pub data: Option<String>,
 }
@@ -40,7 +38,9 @@ pub async fn translate(content: &str) -> Result<TransVO> {
     // 转换为 url 编码
     let content = utf8_percent_encode(content, NON_ALPHANUMERIC).to_string();
 
-    let host = if MODE.load(Ordering::SeqCst) {
+    // 将多行合并一行
+    let content = content.replace(['\n', '\r'], " ");
+    let host = if config::mode() {
         mirror::one()
     } else {
         "https://translate.googleapis.com".to_string()
@@ -113,17 +113,7 @@ async fn send(client: &Client, host: String, lang: &str, content: &str) -> Resul
                         }
                         result.push(Tran { typ: 1, data: None });
                     }
-                    '\n' => {
-                        // Do nothing assuming '\n' is always preceded by '\r', handled above.
-                    }
-                    ' ' => {
-                        result.push(Tran {
-                            typ: 0,
-                            data: Some(tmp.clone()),
-                        });
-                        tmp.clear();
-                        result.push(Tran { typ: 2, data: None });
-                    }
+                    '\n' => (), // Do nothing assuming '\n' is always preceded by '\r', handled above.
                     _ => tmp.push(c),
                 }
             }
